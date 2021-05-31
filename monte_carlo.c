@@ -33,11 +33,26 @@ int main(void) {
   for (int i=2000; i<5000; i++) {
     pi0 = mc_pi(i);
     if (!(fabs(pi0 - M_PI) < 0.4)) {
+      
       printf("Estimate with even %d iterations is %f which is not accurate enough.\n", i, pi0);
       abort();
     }
   }
 }
+float mc_pi(int n) 
+{float c=0.0;
+float ans; 
 
+for(int i=1;i<=n;i++) 
+{ 
+float x= frandom(); 
+float y= frandom(); 
+if(sqrt(x*x+y*y)<1) 
+c++; 
+} 
+
+ans = 4*c/n;
+return ans; 
+}
 
 
