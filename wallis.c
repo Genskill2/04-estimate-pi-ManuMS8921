@@ -45,6 +45,18 @@ ans= ans*(nr/(nr-1));
 
 return ans*2; 
 }            
+    float wallis_pi(int n) 
+{
+float ans=1.0;
+for(int i=1;i<=n;i++) 
+{float nr= 4*i*i;
+
+ans= ans*(nr/(nr-1));
+
+} 
+
+return ans*2; 
+}            
     return pi
 
 
