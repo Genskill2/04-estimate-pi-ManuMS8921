@@ -1,26 +1,41 @@
-#include <assert.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <math.h>
+import math
+import unittest
+import random
 
-float wallis_pi(int);
 
-int main(void) {
-  float pi;
-  for (int i=0; i<5; i++) {
-    pi = wallis_pi(i);
-    if (!(fabs(pi - M_PI) > 0.15)) {
-      printf("Estimate with just %d iterations is %f which is too accurate.\n", i, pi);
-      abort();
-    }
-  }
+#Function wallis
 
-  for (int i=500; i<3000; i++) {
-    pi = wallis_pi(i);
-    if (!(fabs(pi - M_PI) < 0.01)) {
-      printf("Estimate with even %d iterations is %f which is not accurate enough.\n", i, pi);
-      abort();
-    }
-  }
-}
+def wallis(n):
+    pi = 1
+    while n:
+        pi *= (4*n**2)/(4*n**2-1)
+        n = n-1
+    return 2*pi 
 
+
+class TestWallis(unittest.TestCase):
+    def test_low_iters(self):
+        for i in range(0, 5):
+@@ -13,6 +25,22 @@ def test_high_iters(self):
+            self.assertTrue(abs(pi - math.pi) < 0.01, msg=f"Estimate with even {i} iterations is {pi} which is not accurate enough.\n")
+
+
+# monte_carlo function
+
+def monte_carlo(i):
+    n = i
+    j = 0
+    while n:
+        x = random.random()
+        y = random.random()
+        dist = (x**2+y**2)**0.5
+        if dist < 1:
+            j = j+1
+        n -= 1
+    pi = 4*(j/i)
+    return pi
+
+
+class TestMC(unittest.TestCase):
+    def test_randomness(self):
+        pi0 = monte_carlo(15000)
